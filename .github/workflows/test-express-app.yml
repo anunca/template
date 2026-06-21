@@ -1,0 +1,41 @@
+name: Test Express App
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'javascript/express/**'
+  pull_request:
+    paths:
+      - 'javascript/express/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build and Run App
+      run: |
+        cd ./javascript/express
+        make stop || true
+        ENV=prod TAG=${ENV} make build run
+      env:
+        ENV: prod
+
+    - name: Wait for App to Start
+      run: sleep 10
+
+    - name: Test App with cURL
+      run: curl -o /dev/null -s -w "%{http_code}\n" http://localhost:3000/ | grep 200
+
+    - name: Shut Down App
+      if: always()
+      run: cd ./javascript/express && make stop

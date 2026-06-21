@@ -1,0 +1,22 @@
+services:
+  app:
+    depends_on:
+      - db
+    build:
+      target: ${ENV}
+      image: $IMAGE
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOTNET_SDK_VERSION:
+        DOTNET_RUNTIME_VERSION:
+  db:
+    image: $MSSQL_VERSION
+    volumes:
+      - db:/var/opt/mssql/data
+    environment:
+      - MSSQL_PID=Developer
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Sasa!0s0
+volumes:
+  db:

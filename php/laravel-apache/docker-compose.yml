@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      target: dev
+    image: registry.$DOMAIN_NAME/laravel-apache
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'true'
+    volumes:
+      - ./src:/var/www/html

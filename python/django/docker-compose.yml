@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      target: dev
+    image: registry.$DOMAIN_NAME/django
+    environment:
+      DEBUG: 'True'
+    volumes:
+      - ./src:/app
+    ports:
+      - 80:8000

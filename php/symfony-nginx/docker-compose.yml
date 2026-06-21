@@ -1,0 +1,10 @@
+services:
+  web:
+    volumes:
+      - ./src:/var/www/html
+  app:
+    build:
+      target: dev
+    image: registry.$DOMAIN_NAME/symfony-nginx
+    volumes:
+      - ./src:/var/www/html

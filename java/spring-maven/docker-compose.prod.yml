@@ -1,0 +1,21 @@
+services:
+  web:
+    depends_on:
+      - app
+    image: $NGINX_VERSION
+    volumes:
+      - ./etc/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+  app:
+    build:
+      target: prod
+      args:
+        TOMCAT_VERSION:
+    image: registry.$DOMAIN_NAME/spring-maven-prod
+    ports:
+      - 8080:8080
+    volumes:
+      - ./etc/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - ./etc/context.xml:/usr/local/tomcat/webapps/manager/META-INF/context.xml
+      - ./etc/context.xml:/usr/local/tomcat/webapps/host-manager/META-INF/context.xml

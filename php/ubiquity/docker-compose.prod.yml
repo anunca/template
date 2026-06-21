@@ -1,0 +1,7 @@
+services:
+  app:
+    build:
+      target: ${ENV}
+    image: $IMAGE
+    ports:
+      - 80

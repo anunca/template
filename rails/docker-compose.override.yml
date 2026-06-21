@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: $DOCKERFILE
+      args:
+        RUBY_VERSION:
+        RAILS_VERSION:

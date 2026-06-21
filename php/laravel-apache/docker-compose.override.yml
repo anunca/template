@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        PHP_IMAGE:
+    ports:
+      - 80:80

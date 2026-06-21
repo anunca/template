@@ -1,0 +1,13 @@
+services:
+  web:
+    volumes:
+      - ./src:/app
+  app:
+    build:
+      target: dev
+    image: registry.$DOMAIN_NAME/laravel-nginx
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'true'
+    volumes:
+      - ./src:/app
