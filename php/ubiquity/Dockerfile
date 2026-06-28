@@ -5,7 +5,7 @@ FROM $COMPOSER_IMAGE AS composer
 
 FROM $PHP_IMAGE AS base
 
-#extensions
+#PHP extensions
 RUN docker-php-ext-enable opcache
 
 COPY etc/000-default.conf /etc/apache2/sites-available/000-default.conf
