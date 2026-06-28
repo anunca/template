@@ -68,7 +68,7 @@ s/;opcache.max_accelerated_files=.*/opcache.max_accelerated_files=20000/;\
 s/;opcache.validate_timestamps=.*/opcache.validate_timestamps=0/;\
 s/;opcache.interned_strings_buffer=.*/opcache.interned_strings_buffer=16/;\
 s|;opcache.preload=.*|opcache.preload=/var/www/html/vendor/preload.php|;\
-s/;opcache.preload_user=.*/opcache.preload_user=www-data/;\
+s/;opcache.preload_user=.*/opcache.preload_user=nobody/;\
 ' $PHP_INI_DIR/php.ini\
 && echo 'opcache.jit_buffer_size=100M' >> $PHP_INI_DIR/php.ini\
 && sed -i '\
