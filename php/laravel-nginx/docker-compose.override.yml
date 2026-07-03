@@ -14,6 +14,7 @@ services:
       dockerfile: $DOCKERFILE
       args:
         PHP_IMAGE:
+    image: $IMAGE
     volumes:
       - ./etc/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
       - var_run:/var/run

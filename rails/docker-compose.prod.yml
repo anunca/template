@@ -12,7 +12,6 @@ services:
   app:
     build:
       target: prod
-    image: registry.$DOMAIN_NAME/rails-prod
     volumes:
       - app_public:/app/public
       - var_run:/var/run

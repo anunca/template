@@ -12,7 +12,6 @@ services:
       target: prod
       args:
         TOMCAT_VERSION:
-    image: registry.$DOMAIN_NAME/spring-maven-prod
     ports:
       - 8080:8080
     volumes:

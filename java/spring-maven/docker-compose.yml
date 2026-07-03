@@ -2,7 +2,6 @@ services:
   app:
     build:
       target: dev
-    image: registry.$DOMAIN_NAME/spring-maven
     ports:
       - 80:5000
     volumes:

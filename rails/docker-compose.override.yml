@@ -6,3 +6,4 @@ services:
       args:
         RUBY_VERSION:
         RAILS_VERSION:
+    image: $IMAGE

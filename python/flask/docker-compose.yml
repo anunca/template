@@ -2,7 +2,6 @@ services:
   app:
     build:
       target: dev
-    image: registry.$DOMAIN_NAME/flask
     environment:
       FLASK_ENV: development
     volumes:

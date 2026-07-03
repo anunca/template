@@ -4,3 +4,4 @@ services:
       context: .
       args:
         PHP_IMAGE:
+    image: $IMAGE

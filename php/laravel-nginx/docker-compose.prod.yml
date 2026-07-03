@@ -5,7 +5,6 @@ services:
   app:
     build:
       target: prod
-    image: registry.$DOMAIN_NAME/laravel-nginx-prod
     volumes:
       - app_public:/app/public
 volumes:

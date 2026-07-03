@@ -4,3 +4,4 @@ services:
       context: .
       args:
         PYTHON_VERSION:
+    image: $IMAGE

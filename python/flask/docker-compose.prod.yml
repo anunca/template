@@ -11,4 +11,3 @@ services:
   app:
     build:
       target: prod
-    image: registry.$DOMAIN_NAME/flask-prod
