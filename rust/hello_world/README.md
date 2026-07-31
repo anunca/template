@@ -11,6 +11,10 @@
 ```sh
 ```
 ## notes
+Linux install builder dependencies
+```sh
+sudo apt install -y build-essential
+```
 run project
 ```sh
 rustc 
