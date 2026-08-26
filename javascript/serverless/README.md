@@ -21,14 +21,20 @@ make project.dynamodb
 ```
 AWS
 ```sh
-cat <<EOF > ~/.aws/credentials 
+export AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESS_KEY_ID
+export AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET_ACCESS_KEY
+export AWS_DEFAULT_REGION=eu-west-1
+```
+```sh
+cat <<EOF > $HOME/.aws/credentials
 [default]
-aws_access_key_id=YOUR_AWS_ACCESS_KEY_ID
-aws_secret_access_key=YOUR_AWS_SECRET_ACCESS_KEY
+aws_access_key_id = $AWS_ACCESS_KEY_ID
+aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+region = $AWS_DEFAULT_REGION
 EOF
 ```
 ```sh
-cat <<EOF > ~/.aws/config 
+cat <<EOF > $HOME/.aws/config
 [default]
 region=us-west-2
 output=json
