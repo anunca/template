@@ -1,6 +1,0 @@
-services:
-  app:
-    build:
-      target: ${ENV}
-    ports:
-      - 80

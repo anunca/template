@@ -1,8 +1,0 @@
-services:
-  app:
-    build:
-      target: ${ENV}
-    ports:
-      - 80:80
-    volumes:
-      - ./src:/var/www/html
