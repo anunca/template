@@ -1,8 +1,8 @@
-ARG NODE_IMAGE=node:26.1.0-alpine
+ARG NODE_IMAGE=node:26.7.0-alpine
 
 FROM $NODE_IMAGE
 
-RUN npm -i -g serverless
+RUN npm install -g serverless
 
 WORKDIR /app
 

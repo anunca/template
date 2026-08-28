@@ -1,5 +1,5 @@
-ARG NODE_IMAGE=node:26.1.0-alpine
-ARG NGINX_VERSION=nginx:1.30.0-alpine
+ARG NODE_IMAGE=node:26.7.0-alpine
+ARG NGINX_IMAGE=nginx:1.31.4-alpine
 
 FROM $NODE_IMAGE AS dev
 
@@ -17,6 +17,6 @@ COPY src .
 RUN npm i --omit=dev\
   && npm run build
 
-FROM $NGINX_VERSION AS prod
+FROM $NGINX_IMAGE AS prod
 
 COPY --from=build /app/build /usr/share/nginx/html
