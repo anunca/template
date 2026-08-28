@@ -71,7 +71,7 @@ s.invoke s.i: ## Invoke
 ##@ Project
 project: build ## Create
 	@$(dc) run --rm --entrypoint sh app -c "serverless"\
-	&& $(dc) run --rm --entrypoint sh app -c "npm i -D serverless-offline"\
+	&& $(dc) run --rm --entrypoint sh app -c "npm install -D serverless-offline"\
 	&& $(dc) run --rm --entrypoint sh app -c "sed -i '/^service: app/a plugins:\n  - serverless-offline # serverless-offline needs to be last in the list' serverless.yml"\
 	&& $(dc) run --rm --entrypoint sh app -c "sed -i '/^  - serverless-offline/a custom:\n  serverless-offline:\n    host: 0.0.0.0\n    httpPort: 3000\\n    lambdaPort: 3002\' serverless.yml"\
 	&& make start\

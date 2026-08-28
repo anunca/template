@@ -11,6 +11,6 @@ FROM dev AS prod
 
 COPY src/package.json .
 
-RUN npm i --omit=dev
+RUN npm install --omit=dev
 
 COPY src .

@@ -10,7 +10,7 @@ ENTRYPOINT [ "npm", "run" ]
 
 FROM base AS dev
 
-RUN npm i -D nodemon
+RUN npm install -D nodemon
 
 COPY ./src /app/
 
@@ -20,6 +20,6 @@ FROM base AS prod
 
 COPY --from=dev /app /app
 
-RUN npm i --omit=dev
+RUN npm install --omit=dev
 
 CMD [ "start" ]

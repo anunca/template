@@ -16,7 +16,7 @@ make run
 ```
 - generator
 ```sh
-npm i -g express-generator@4
+npm install -g express-generator@4
 ```
 - create project
 ```sh

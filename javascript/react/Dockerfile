@@ -3,7 +3,7 @@ ARG NGINX_IMAGE=nginx:1.31.4-alpine
 
 FROM $NODE_IMAGE AS dev
 
-RUN npm i -g create-react-app
+RUN npm install -g create-react-app
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ FROM dev AS build
 
 COPY src .
 
-RUN npm i --omit=dev\
+RUN npm install --omit=dev\
   && npm run build
 
 FROM $NGINX_IMAGE AS prod
