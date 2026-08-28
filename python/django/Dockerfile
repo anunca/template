@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION
+ARG PYTHON_VERSION=python:3.14.7-alpine
 
 FROM $PYTHON_VERSION AS base
 
@@ -10,7 +10,7 @@ EXPOSE 8000
 
 FROM base AS dev
 
-CMD python manage.py runserver 0.0.0.0:8000
+CMD [ "python", "manage.py" , "runserver", "0.0.0.0:8000" ]
 
 FROM dev AS build
 

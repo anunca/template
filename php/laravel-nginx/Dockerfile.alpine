@@ -1,5 +1,5 @@
-ARG COMPOSER_IMAGE=composer:2.9.7
-ARG PHP_IMAGE=php:8.3.31-fpm-alpine
+ARG COMPOSER_IMAGE=composer:2.10.2
+ARG PHP_IMAGE=php:8.5.9-fpm-alpine
 
 #composer version
 FROM $COMPOSER_IMAGE AS composer
@@ -10,8 +10,7 @@ FROM $PHP_IMAGE AS base
 RUN apk add --no-cache libzip-dev
   
 #extensions
-RUN docker-php-ext-install -j$(nproc) zip\
-  && docker-php-ext-enable opcache
+RUN docker-php-ext-install -j$(nproc) zip
 
 WORKDIR /app
 

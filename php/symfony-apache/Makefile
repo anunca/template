@@ -48,10 +48,10 @@ stop st: ## Stop containers
 restart r: stop start ## Restart
 
 run: ## Run shell
-	$(dc) run --rm --entrypoint $(DOCKER_SHELL) php
+	$(dc) run --rm --entrypoint $(DOCKER_SHELL) app
 
 shell sh: ## Exec shell
-	$(dc) exec php $(DOCKER_SHELL)
+	$(dc) exec app $(DOCKER_SHELL)
 
 logs l: ## Follow logs
 	$(dc) logs -f
@@ -64,7 +64,7 @@ clean cl: stop ## Cleanup docker
 
 ##@ Composer
 composer.install: ## Install
-	$(dc) run --rm php composer install
+	$(dc) run --rm app composer install
 
 ##@ Project
 project: build ## Create

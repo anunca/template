@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        GO_VERSION:
-        ALPINE_VERSION:
+        GO_IMAGE:
+        ALPINE_IMAGE:
     image: $IMAGE
     ports:
       - 3000:3000

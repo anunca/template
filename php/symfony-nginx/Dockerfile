@@ -1,5 +1,5 @@
-ARG COMPOSER_IMAGE=composer:2.9.7
-ARG PHP_IMAGE=php:8.3.31-fpm
+ARG COMPOSER_IMAGE=composer:2.10.2
+ARG PHP_IMAGE=php:8.5.9-fpm
 
 FROM $COMPOSER_IMAGE AS composer
 
@@ -11,8 +11,7 @@ RUN apt update -qq\
   && rm -rf /var/lib/apt/lists/*
 
 #PHP extensions
-RUN docker-php-ext-install -j$(nproc) zip\
-  && docker-php-ext-enable opcache
+RUN docker-php-ext-install -j$(nproc) zip
 
 WORKDIR /var/www/html
 
@@ -27,8 +26,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 #symfony
-RUN  wget https://get.symfony.com/cli/installer -O - | bash\
-  && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+RUN  curl -fsSL https://get.symfony.com/cli/installer | bash\
+  && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
 RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini\
 && sed -i '\

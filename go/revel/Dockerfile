@@ -1,5 +1,4 @@
-ARG GO_VERSION=1.26.3
-ARG GO_IMAGE=golang:${GO_VERSION}-alpine
+ARG GO_IMAGE=golang:1.27.0-alpine
 
 FROM $GO_IMAGE
 
