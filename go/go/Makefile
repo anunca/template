@@ -7,16 +7,14 @@ include .env
 ENV ?= dev
 TAG ?= ${ENV}
 DOCKER_SHELL ?= sh
-TAG = ${ENV}
 
 dc_files = docker-compose.override.yml
+
 ifeq ($(ENV),dev)
 	dc_files += docker-compose.yml
 endif
-dc = docker compose $(foreach f,$(dc_files),-f $(f))
 
-export ENV
-export TAG
+dc = docker compose $(foreach f,$(dc_files),-f $(f))
 
 help h: ## Show help
 	@awk 'BEGIN {FS = ":.*##"} \
