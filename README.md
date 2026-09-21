@@ -8,10 +8,8 @@ Containerized starter projects covering .NET, Go, Java, JavaScript, PHP, and Pyt
 | [Go Fiber](./go/fiber/README.md) | Build and run a Go web application with Fiber |
 | [Go](./go/go/README.md) | Build and run a basic containerized Go application |
 | [Go Revel](./go/revel/README.md) | Create and run a Go web application with Revel |
-| [Go Revel application](./go/revel/src/app/README.md) | Document the generated Revel application structure and commands |
 | [Spring Boot with Gradle](./java/spring-gradle/README.md) | Build and run a Spring Boot application with Gradle and Tomcat |
 | [Spring Boot with Maven](./java/spring-maven/README.md) | Build and run a Spring Boot application with Maven and Tomcat |
-| [Spring Maven application](./java/spring-maven/src/README.md) | Document the generated Spring project and Auto DevOps support |
 | [Express](./javascript/express/README.md) | Generate and run an Express web application |
 | [Node.js](./javascript/nodejs/README.md) | Create and run a containerized Node.js project |
 | [React](./javascript/react/README.md) | Generate a React application with optional Redux support |
