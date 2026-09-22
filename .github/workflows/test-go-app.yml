@@ -26,9 +26,7 @@ jobs:
       run: |
         cd ./go/go
         make stop || true
-        ENV=prod TAG=${ENV} make build run
-      env:
-        ENV: prod
+        make build start
 
     - name: Wait for App to Start
       run: sleep 10

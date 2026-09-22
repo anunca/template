@@ -10,6 +10,8 @@ DOCKER_SHELL ?= sh
 
 dc = docker compose -f compose.yml -f compose.$(ENV).yml
 
+export IMAGE ENV
+
 help h: ## Show help
 	@awk 'BEGIN {FS = ":.*##"} \
 	/^[a-zA-Z0-9_. -]+:.*##/ { \

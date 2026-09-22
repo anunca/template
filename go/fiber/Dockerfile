@@ -24,7 +24,7 @@ FROM $ALPINE_IMAGE AS prod
 RUN addgroup -S app \
 && adduser -S app -G app
 
-COPY --from=build /app/main /app/main
+COPY --from=build /app/tmp/main /app/main
 
 USER app
 
