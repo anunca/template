@@ -76,5 +76,5 @@ project: build ## Create
 project.dynamodb: ## Create dynamoDB
 	rm docker-compose.yml\
 	&& mv docker-compose-dynamodb.yml docker-compose.yml\
-	&& rm .env && mv .env.dynamodb .env\
+	&& rm .env && cp .env.dynamodb .env\
 	&& make project
