@@ -4,12 +4,12 @@ services:
       - db
     build:
       target: ${ENV}
-      image: $IMAGE
       context: .
       dockerfile: Dockerfile
       args:
         DOTNET_SDK_VERSION:
         DOTNET_RUNTIME_VERSION:
+    image: $IMAGE
   db:
     image: $MSSQL_VERSION
     volumes:

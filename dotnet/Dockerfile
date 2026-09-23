@@ -1,5 +1,5 @@
-ARG DOTNET_SDK_VERSION
-ARG DOTNET_RUNTIME_VERSION
+ARG DOTNET_SDK_VERSION=mcr.microsoft.com/dotnet/sdk:6.0-alpine
+ARG DOTNET_RUNTIME_VERSION=mcr.microsoft.com/dotnet/runtime:6.0-alpine
 
 FROM $DOTNET_SDK_VERSION AS dev
 
