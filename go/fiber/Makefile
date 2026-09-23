@@ -1,4 +1,4 @@
-PHONY: help
+.PHONY: help
 .DEFAULT_GOAL := help
 
 include .env.local
