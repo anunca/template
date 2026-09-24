@@ -4,5 +4,5 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        MAVEN_VERSION:
+        MAVEN_IMAGE:
     image: $APP_IMAGE
