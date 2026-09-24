@@ -7,6 +7,6 @@ services:
       args:
         GO_IMAGE:
         ALPINE_IMAGE:
-    image: $IMAGE
+    image: $APP_IMAGE
     ports:
       - 3000:3000
