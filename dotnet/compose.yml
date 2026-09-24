@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        DOTNET_SDK_VERSION:
-        DOTNET_RUNTIME_VERSION:
+        DOTNET_SDK_IMAGE:
+        DOTNET_RUNTIME_IMAGE:
     image: $APP_IMAGE
   db:
     image: $MSSQL_IMAGE
