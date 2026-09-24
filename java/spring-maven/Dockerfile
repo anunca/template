@@ -1,7 +1,7 @@
-ARG MAVEN_VERSION
-ARG TOMCAT_VERSION
+ARG MAVEN_IMAGE
+ARG TOMCAT_IMAGE
 
-FROM $MAVEN_VERSION AS dev
+FROM $MAVEN_IMAGE AS dev
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY src .
 
 RUN mvn package
 
-FROM $TOMCAT_VERSION AS prod
+FROM $TOMCAT_IMAGE AS prod
 
 # COPY --from=build "/app/target/*.war" ./webapps.dist/
 COPY --from=build "/app/target/demo-0.0.1-SNAPSHOT.war" ./webapps/
