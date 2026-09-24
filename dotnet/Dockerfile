@@ -1,7 +1,7 @@
-ARG DOTNET_SDK_VERSION=mcr.microsoft.com/dotnet/sdk:6.0-alpine
-ARG DOTNET_RUNTIME_VERSION=mcr.microsoft.com/dotnet/runtime:6.0-alpine
+ARG DOTNET_SDK_IMAGE=mcr.microsoft.com/dotnet/sdk:6.0-alpine
+ARG DOTNET_RUNTIME_IMAGE=mcr.microsoft.com/dotnet/runtime:6.0-alpine
 
-FROM $DOTNET_SDK_VERSION AS dev
+FROM $DOTNET_SDK_IMAGE AS dev
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ COPY src .
 
 RUN dotnet publish -c Release
 
-FROM $DOTNET_RUNTIME_VERSION AS prod
+FROM $DOTNET_RUNTIME_IMAGE AS prod
 
 COPY --from=build /app/bin/Release/net5.0/publish/ .
 
