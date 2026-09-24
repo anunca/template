@@ -6,7 +6,7 @@ services:
       args:
         NODE_IMAGE:
         NGINX_IMAGE:
-    image: $IMAGE
+    image: $APP_IMAGE
     environment:
       HOST:
       PORT:

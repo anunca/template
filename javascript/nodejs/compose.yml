@@ -4,4 +4,4 @@ services:
       context: .
       args:
         NODE_IMAGE:
-    image: $IMAGE
+    image: $APP_IMAGE
