@@ -4,6 +4,6 @@ services:
       context: .
       args:
         PHP_IMAGE:
-    image: $IMAGE
+    image: $APP_IMAGE
     ports:
       - 80:80
