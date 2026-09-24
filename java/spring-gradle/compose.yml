@@ -5,4 +5,4 @@ services:
       dockerfile: Dockerfile
       args:
         JAVA_VERSION:
-    image: $IMAGE
+    image: $APP_IMAGE
