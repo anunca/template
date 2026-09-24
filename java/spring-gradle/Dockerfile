@@ -1,7 +1,7 @@
-ARG JAVA_VERSION
-ARG TOMCAT_VERSION
+ARG JAVA_IMAGE
+ARG TOMCAT_IMAGE
 
-FROM $JAVA_VERSION AS dev
+FROM $JAVA_IMAGE AS dev
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY src .
 
 RUN ./gradlew clean build
 
-FROM $TOMCAT_VERSION AS prod
+FROM $TOMCAT_IMAGE AS prod
 
 # COPY --from=build "/app/build/libs/*.war" ./webapps.dist/
 COPY --from=build "/app/build/libs/*.war" ./webapps/
