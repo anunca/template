@@ -9,9 +9,9 @@ services:
       args:
         DOTNET_SDK_VERSION:
         DOTNET_RUNTIME_VERSION:
-    image: $IMAGE
+    image: $APP_IMAGE
   db:
-    image: $MSSQL_VERSION
+    image: $MSSQL_IMAGE
     volumes:
       - db:/var/opt/mssql/data
     environment:
