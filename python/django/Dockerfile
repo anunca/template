@@ -1,6 +1,6 @@
-ARG PYTHON_VERSION=python:3.14.7-alpine
+ARG PYTHON_IMAGE=python:3.14.7-alpine
 
-FROM $PYTHON_VERSION AS base
+FROM $PYTHON_IMAGE AS base
 
 RUN pip install django
 
