@@ -2,7 +2,7 @@ services:
   web:
     depends_on:
       - app
-    image: $NGINX_VERSION
+    image: $NGINX_IMAGE
     volumes:
       - ./etc/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
@@ -11,7 +11,7 @@ services:
     build:
       target: prod
       args:
-        TOMCAT_VERSION:
+        TOMCAT_IMAGE:
     ports:
       - 8080:8080
     volumes:
