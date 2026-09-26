@@ -25,6 +25,10 @@ RUN apt update -qq\
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
+COPY src/composer.json src/composer.lock ./
+RUN composer install
+COPY src .
+
 #symfony
 RUN  curl -fsSL https://get.symfony.com/cli/installer | bash\
   && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
@@ -38,17 +42,15 @@ s/memory_limit =.*/memory_limit = 128M/;\
 ' $PHP_INI_DIR/php.ini
 
 FROM dev AS build
- 
-COPY src .
 
 ARG APP_ENV
 ARG APP_DEBUG
 ARG APP_SECRET
 ARG DATABASE_URL
 
-RUN composer install --no-dev --optimize-autoloader\
-  && composer dump-autoload --no-dev --classmap-authoritative\
-  && composer dump-env prod --empty
+COPY src/composer.json src/composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
+COPY src .
 
 RUN bin/console cache:warmup
 
