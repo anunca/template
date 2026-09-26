@@ -1,0 +1,12 @@
+services:
+  web:
+    volumes:
+      - ./src:/app
+  app:
+    build:
+      target: dev
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'true'
+    volumes:
+      - ./src:/app

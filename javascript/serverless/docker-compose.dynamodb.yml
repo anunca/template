@@ -1,0 +1,29 @@
+services:
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+      args:
+        NODE_IMAGE:
+    image: $APP_IMAGE
+    ports:
+      - 80:3000
+      - 8080:3002
+    volumes:
+      - ./src:/app
+      - node_modules:/app/node_modules
+      - ~/.aws:/root/.aws
+    environment:
+      SLS_DEBUG:
+      DYNAMODB_URL:
+  db:
+    image: $DYNAMODB_IMAGE
+    ports:
+      - 8000:8000
+    volumes:
+      - db:/home/dynamodblocal
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath "."
+volumes:
+  node_modules:
+  db:

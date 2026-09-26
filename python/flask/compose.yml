@@ -1,0 +1,7 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        PYTHON_IMAGE:
+    image: $APP_IMAGE

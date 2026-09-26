@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      target: ${ENV}
+    volumes:
+      - ./src:/app
+    environment:
+      DEBUG:

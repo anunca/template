@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_IMAGE:
+    image: $APP_IMAGE
+    ports:
+      - 3000:3000

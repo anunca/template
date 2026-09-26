@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      target: dev
+    environment:
+      FLASK_ENV: development
+    volumes:
+      - ./src:/app
+    ports:
+      - 80:5000

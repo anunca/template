@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GO_IMAGE:
+    image: $APP_IMAGE
+    ports:
+      - 9000:9000
+    volumes:
+      - ./src:/go/src

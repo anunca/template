@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      target: ${ENV}
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GO_IMAGE:
+        ALPINE_IMAGE:
+    image: $APP_IMAGE
+    ports:
+      - 3000:3000

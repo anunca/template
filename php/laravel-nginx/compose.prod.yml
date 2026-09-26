@@ -1,0 +1,11 @@
+services:
+  web:
+    volumes:
+      - app_public:/app/public
+  app:
+    build:
+      target: prod
+    volumes:
+      - app_public:/app/public
+volumes:
+  app_public:
