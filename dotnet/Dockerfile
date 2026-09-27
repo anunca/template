@@ -19,6 +19,8 @@ RUN dotnet publish -c Release
 
 FROM $DOTNET_RUNTIME_IMAGE AS prod
 
+WORKDIR /app
+
 COPY --from=build /app/bin/Release/net5.0/publish/ .
 
 ENV ASPNETCORE_URLS='http://*:5000;https://*:5001' DOTNET_URLS=='http://*:5000;https://*:5001'
