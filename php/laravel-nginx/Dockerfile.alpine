@@ -10,14 +10,14 @@ FROM $PHP_IMAGE AS base
 RUN apk add --no-cache libzip-dev
   
 #extensions
-RUN docker-php-ext-install -j$(nproc) zip
+RUN docker-php-ext-install -j"$(nproc)" zip
 
 WORKDIR /app
 
 FROM base AS dev
 
 #dev dependencies
-RUN apk add git unzip\
+RUN apk add --no-cache git unzip\
   && rm -rf /var/cache/apk/
 
 #composer
