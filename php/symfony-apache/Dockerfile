@@ -28,9 +28,9 @@ RUN apt-get update -qq\
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-COPY src/composer.json src/composer.lock ./
-RUN composer install
-COPY src .
+# COPY src/composer.json src/composer.lock ./
+# RUN composer install
+# COPY src .
 
 #symfony
 RUN  curl -fsSL https://get.symfony.com/cli/installer | bash\
