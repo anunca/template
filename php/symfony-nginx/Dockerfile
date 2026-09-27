@@ -19,6 +19,8 @@ WORKDIR /var/www/html
 
 FROM base AS dev
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 #Composer dependencies
 RUN apt-get update -qq\
   && apt-get install -y git unzip\
