@@ -10,6 +10,7 @@ ENTRYPOINT [ "npm", "run" ]
 
 FROM base AS dev
 
+# hadolint ignore=DL3016
 RUN npm install -D nodemon
 
 COPY ./src /app/
@@ -20,6 +21,7 @@ FROM base AS prod
 
 COPY --from=dev /app /app
 
+# hadolint ignore=DL3016
 RUN npm install --omit=dev
 
 CMD [ "start" ]
