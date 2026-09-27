@@ -7,10 +7,9 @@ FROM $COMPOSER_IMAGE AS composer
 FROM $PHP_IMAGE AS base
 
 #dependencies
-RUN apk add --no-cache libzip-dev
-  
-#extensions
-RUN docker-php-ext-install -j"$(nproc)" zip
+RUN apk add --no-cache --virtual .build-deps libzip-dev \
+  && docker-php-ext-install -j"$(nproc)" zip \
+  && apk del .build-deps
 
 WORKDIR /app
 
