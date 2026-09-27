@@ -22,6 +22,8 @@ RUN mvn package
 
 FROM $TOMCAT_IMAGE AS prod
 
+WORKDIR /usr/local/tomcat
+
 # COPY --from=build "/app/target/*.war" ./webapps.dist/
 COPY --from=build "/app/target/demo-0.0.1-SNAPSHOT.war" ./webapps/
 

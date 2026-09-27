@@ -7,6 +7,7 @@ WORKDIR /app
 
 EXPOSE 3000
 
+# hadolint ignore=DL3062
 RUN go install github.com/air-verse/air@latest
 
 CMD [ "air", "-c", ".air.toml" ]

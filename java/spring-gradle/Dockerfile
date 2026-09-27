@@ -18,6 +18,8 @@ RUN ./gradlew clean build
 
 FROM $TOMCAT_IMAGE AS prod
 
+WORKDIR /usr/local/tomcat
+
 # COPY --from=build "/app/build/libs/*.war" ./webapps.dist/
 COPY --from=build "/app/build/libs/*.war" ./webapps/
 

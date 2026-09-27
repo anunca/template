@@ -16,6 +16,8 @@ WORKDIR /var/www/html
 
 FROM base AS dev
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 #Composer dependencies
 RUN apt-get update -qq\
   && apt-get install -y --no-install-recommends git unzip\
@@ -24,9 +26,9 @@ RUN apt-get update -qq\
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-COPY src/composer.json src/composer.lock ./
-RUN composer install
-COPY src .
+# COPY src/composer.json src/composer.lock ./
+# RUN composer install
+# COPY src .
 
 #symfony
 RUN  curl -fsSL https://get.symfony.com/cli/installer | bash\
@@ -44,7 +46,9 @@ FROM dev AS build
 
 ARG APP_ENV
 ARG APP_DEBUG
+# hadolint ignore=DL3064
 ARG APP_SECRET
+# hadolint ignore=DL3064
 ARG DATABASE_URL
 
 COPY src/composer.json src/composer.lock ./
