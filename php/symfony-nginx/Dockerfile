@@ -5,6 +5,8 @@ FROM $COMPOSER_IMAGE AS composer
 
 FROM $PHP_IMAGE AS base
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 #base dependencies
 RUN apt-get update -qq\
   && apt-get install -y libzip-dev\
@@ -45,7 +47,9 @@ FROM dev AS build
 
 ARG APP_ENV
 ARG APP_DEBUG
+# hadolint ignore=DL3064
 ARG APP_SECRET
+# hadolint ignore=DL3064
 ARG DATABASE_URL
 
 COPY src/composer.json src/composer.lock ./
