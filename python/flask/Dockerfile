@@ -18,9 +18,9 @@ COPY ./src/requirements.txt requirements.txt
 
 #base dependencies
 RUN echo "uWSGI>=2.0.18,<2.1" >> requirements.txt\
-  && apk add --no-cache --virtual .virtual gcc libc-dev linux-headers\
+  && apk add --no-cache --virtual .build-deps gcc libc-dev linux-headers\
   && pip install -r requirements.txt\
-  && apk del .virtual
+  && apk del .build-deps
 
 COPY ./src .
 

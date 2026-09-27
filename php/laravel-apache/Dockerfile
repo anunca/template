@@ -5,13 +5,12 @@ FROM $COMPOSER_IMAGE AS composer
 
 FROM $PHP_IMAGE AS base
 
-#base dependencies
-RUN apt update -qq\
-  && apt install -y libzip-dev\
+# Build PHP extension and remove build-only headers in the same layer
+RUN apt-get update -qq\
+  && apt-get install -y --no-install-recommends libzip-dev\
+  && docker-php-ext-install -j"$(nproc)" zip\
+  && apt-get purge -y libzip-dev\
   && rm -rf /var/lib/apt/lists/*
-
-#PHP extensions
-RUN docker-php-ext-install -j$(nproc) zip
 
 RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
@@ -20,8 +19,8 @@ WORKDIR /var/www/html
 FROM base AS dev
 
 #Composer dependencies
-RUN apt update -qq\
-  && apt install -y git unzip\
+RUN apt-get update -qq\
+  && apt-get install -y --no-install-recommends git unzip\
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
