@@ -5,6 +5,7 @@ FROM $GO_IMAGE
 RUN apk add --no-cache --virtual .virtual git\
   && apk del .virtual
 
+# hadolint ignore=DL3062
 RUN go install github.com/revel/cmd/revel@latest
 
 ENV PATH="$PATH:$GOPATH/bin"
