@@ -5,4 +5,5 @@ services:
       dockerfile: Dockerfile
       args:
         MAVEN_IMAGE:
+        TOMCAT_IMAGE:
     image: $APP_IMAGE
