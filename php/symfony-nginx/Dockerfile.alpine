@@ -18,6 +18,8 @@ WORKDIR /var/www/html
 
 FROM base AS dev
 
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+
 #dev dependencies
 RUN apk add --no-cache git unzip wget bash\
   && rm -rf /var/cache/apk/
