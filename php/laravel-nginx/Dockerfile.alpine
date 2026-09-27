@@ -6,9 +6,10 @@ FROM $COMPOSER_IMAGE AS composer
 
 FROM $PHP_IMAGE AS base
 
-#dependencies
-RUN apk add --no-cache --virtual .build-deps libzip-dev \
-  && docker-php-ext-install -j"$(nproc)" zip \
+# Keep runtime library and remove build-only headers after compiling the extension
+RUN apk add --no-cache libzip\
+  && apk add --no-cache --virtual .build-deps libzip-dev\
+  && docker-php-ext-install -j"$(nproc)" zip\
   && apk del .build-deps
 
 WORKDIR /app
@@ -16,8 +17,7 @@ WORKDIR /app
 FROM base AS dev
 
 #dev dependencies
-RUN apk add --no-cache git unzip\
-  && rm -rf /var/cache/apk/
+RUN apk add --no-cache git unzip
 
 #composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer

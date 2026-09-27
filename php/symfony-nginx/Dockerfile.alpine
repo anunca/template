@@ -6,11 +6,10 @@ FROM $COMPOSER_IMAGE AS composer
 
 FROM $PHP_IMAGE AS base
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-
-#dependencies
-RUN apk add --no-cache --virtual .build-deps libzip-dev \
-  && docker-php-ext-install -j"$(nproc)" zip \
+# Keep runtime library and remove build-only headers after compiling the extension
+RUN apk add --no-cache libzip\
+  && apk add --no-cache --virtual .build-deps libzip-dev\
+  && docker-php-ext-install -j"$(nproc)" zip\
   && apk del .build-deps
 
 WORKDIR /var/www/html
@@ -20,8 +19,7 @@ FROM base AS dev
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 #dev dependencies
-RUN apk add --no-cache git unzip wget bash\
-  && rm -rf /var/cache/apk/
+RUN apk add --no-cache git unzip wget bash
 
 #composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer

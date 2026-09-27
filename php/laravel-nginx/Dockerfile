@@ -5,13 +5,12 @@ FROM $COMPOSER_IMAGE AS composer
 
 FROM $PHP_IMAGE AS base
  
-#base dependencies
+# Build PHP extension and remove build-only headers in the same layer
 RUN apt-get update -qq\
-  && apt-get install -y libzip-dev\
+  && apt-get install -y --no-install-recommends libzip-dev\
+  && docker-php-ext-install -j"$(nproc)" zip\
+  && apt-get purge -y libzip-dev\
   && rm -rf /var/lib/apt/lists/*
-
-#PHP extensions
-RUN docker-php-ext-install -j"$(nproc)" zip
  
 WORKDIR /app
 
@@ -19,7 +18,7 @@ FROM base AS dev
 
 #Composer dependencies
 RUN apt-get update -qq\
-  && apt-get install -y git unzip\
+  && apt-get install -y --no-install-recommends git unzip\
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer

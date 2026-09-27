@@ -7,13 +7,12 @@ FROM $PHP_IMAGE AS base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
  
-#base dependencies
+# Build PHP extension and remove build-only headers in the same layer
 RUN apt-get update -qq\
-  && apt-get install -y libzip-dev\
+  && apt-get install -y --no-install-recommends libzip-dev\
+  && docker-php-ext-install -j"$(nproc)" zip\
+  && apt-get purge -y libzip-dev\
   && rm -rf /var/lib/apt/lists/*
-
-#PHP extensions
-RUN docker-php-ext-install -j"$(nproc)" zip
  
 WORKDIR /var/www/html
 
@@ -23,7 +22,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 #Composer dependencies
 RUN apt-get update -qq\
-  && apt-get install -y git unzip\
+  && apt-get install -y --no-install-recommends git unzip\
   && rm -rf /var/lib/apt/lists/*
  
 COPY --from=composer /usr/bin/composer /usr/bin/composer
