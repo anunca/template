@@ -9,10 +9,9 @@ FROM $PHP_IMAGE AS base
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 #dependencies
-RUN apk add --no-cache libzip-dev
-  
-#extensions
-RUN docker-php-ext-install -j"$(nproc)" zip
+RUN apk add --no-cache --virtual .build-deps libzip-dev \
+  && docker-php-ext-install -j"$(nproc)" zip \
+  && apk del .build-deps
 
 WORKDIR /var/www/html
 
