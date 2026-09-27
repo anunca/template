@@ -6,8 +6,6 @@ RUN apk add --no-cache --virtual .build-deps git\
   && go install github.com/revel/cmd/revel@latest\
   && apk del .build-deps
 
-# revel is installed above
-# github.com/revel/cmd/revel@latest
 
 ENV PATH="$PATH:$GOPATH/bin"
 
