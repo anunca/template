@@ -2,7 +2,8 @@ ARG PYTHON_IMAGE=python:3.14.7-alpine
 
 FROM $PYTHON_IMAGE AS base
 
-RUN pip install django
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir django
 
 WORKDIR /app
 
@@ -19,7 +20,7 @@ COPY ./src/requirements.txt requirements.txt
 #base dependencies
 RUN echo "uWSGI>=2.0.18,<2.1" >> requirements.txt\
   && apk add --no-cache --virtual .virtual gcc libc-dev linux-headers\
-  && pip install -r requirements.txt\
+  && pip install --no-cache-dir -r requirements.txt\
   && apk del .virtual
 
 COPY ./src .
