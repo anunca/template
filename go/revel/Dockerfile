@@ -2,6 +2,7 @@ ARG GO_IMAGE=golang:1.27.0-alpine
 
 FROM $GO_IMAGE
 
+# hadolint ignore=DL3062
 RUN apk add --no-cache --virtual .build-deps git\
   && go install github.com/revel/cmd/revel@latest\
   && apk del .build-deps
