@@ -16,8 +16,6 @@ WORKDIR /var/www/html
 
 FROM base AS base-builder
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 #Composer dependencies
 RUN apt-get update -qq\
   && apt-get install -y --no-install-recommends git unzip\
@@ -33,6 +31,7 @@ FROM base-builder AS dev
 #     COMPOSER_CACHE_DIR=/tmp/composer-cache composer install
 # COPY src .
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 #symfony
 RUN  curl -fsSL https://get.symfony.com/cli/installer | bash\
   && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony

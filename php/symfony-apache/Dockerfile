@@ -4,8 +4,6 @@ ARG PHP_IMAGE=php:8.5.10-apache
 FROM $COMPOSER_IMAGE AS composer
 
 FROM $PHP_IMAGE AS base
-
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
  
 # Build PHP extension and remove build-only headers in the same layer
 RUN apt-get update -qq\
@@ -17,8 +15,6 @@ RUN apt-get update -qq\
 WORKDIR /var/www/html
 
 FROM base AS base-builder
-
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 #Composer dependencies
 RUN apt-get update -qq\
@@ -35,6 +31,7 @@ FROM base-builder AS dev
 #     COMPOSER_CACHE_DIR=/tmp/composer-cache composer install
 # COPY src .
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 #symfony
 RUN  curl -fsSL https://get.symfony.com/cli/installer | bash\
   && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
