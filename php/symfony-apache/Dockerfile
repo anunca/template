@@ -16,7 +16,7 @@ RUN apt-get update -qq\
  
 WORKDIR /var/www/html
 
-FROM base AS dev
+FROM base AS base-builder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -28,8 +28,11 @@ RUN apt-get update -qq\
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
+FROM base-builder AS dev
+
 # COPY src/composer.json src/composer.lock ./
-# RUN composer install
+# RUN --mount=type=cache,target=/tmp/composer-cache \
+#     COMPOSER_CACHE_DIR=/tmp/composer-cache composer install
 # COPY src .
 
 #symfony
@@ -44,7 +47,18 @@ s|;date.timezone =.*|date.timezone = Europe/Paris|;\
 s/memory_limit =.*/memory_limit = 128M/;\
 ' $PHP_INI_DIR/php.ini
 
-FROM dev AS build
+FROM base-builder AS prod-builder
+ 
+COPY src/composer.json src/composer.lock ./
+RUN --mount=type=cache,target=/tmp/composer-cache \
+    COMPOSER_CACHE_DIR=/tmp/composer-cache composer install --no-dev --no-interaction --no-progress --prefer-dist --no-autoloader --no-scripts
+COPY src .
+# Generate the optimized autoloader after application classes are available.
+RUN composer dump-autoload --no-dev --optimize --no-interaction
+
+RUN bin/console cache:warmup
+
+FROM base AS prod
 
 ARG APP_ENV
 ARG APP_DEBUG
@@ -52,16 +66,8 @@ ARG APP_DEBUG
 ARG APP_SECRET
 # hadolint ignore=DL3064
 ARG DATABASE_URL
-
-COPY src/composer.json src/composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
-COPY src .
-
-RUN bin/console cache:warmup
-
-FROM base AS prod
  
-COPY --from=build /var/www/html .
+COPY --from=prod-builder /var/www/html .
 
 RUN chown -R www-data:www-data var
 

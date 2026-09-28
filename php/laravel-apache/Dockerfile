@@ -16,7 +16,7 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-available/
 
 WORKDIR /var/www/html
 
-FROM base AS dev
+FROM base AS base-builder
 
 #Composer dependencies
 RUN apt-get update -qq\
@@ -26,8 +26,11 @@ RUN apt-get update -qq\
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
+FROM base-builder AS dev
+
 # COPY src/composer.json src/composer.lock ./
-# RUN composer install
+# RUN --mount=type=cache,target=/tmp/composer-cache \
+#     COMPOSER_CACHE_DIR=/tmp/composer-cache composer install
 # COPY src .
 
 RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini\
@@ -38,15 +41,18 @@ s|;date.timezone =.*|date.timezone = Europe/Paris|;\
 s/memory_limit =.*/memory_limit = 128M/;\
 ' $PHP_INI_DIR/php.ini
 
-FROM dev AS build
+FROM base-builder AS prod-builder
  
+COPY src/composer.json src/composer.lock ./
+RUN --mount=type=cache,target=/tmp/composer-cache \
+    COMPOSER_CACHE_DIR=/tmp/composer-cache composer install --no-dev --no-interaction --no-progress --prefer-dist --no-autoloader --no-scripts
 COPY src .
-
-RUN composer install --no-dev --optimize-autoloader
+# Generate the optimized autoloader after application classes are available.
+RUN composer dump-autoload --no-dev --optimize --no-interaction
 
 FROM base AS prod
  
-COPY --from=build /var/www/html .
+COPY --from=prod-builder /var/www/html .
 
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini\
 && sed -i '\
