@@ -14,6 +14,13 @@ RUN apt-get update -qq\
  
 WORKDIR /var/www/html
 
+ARG APP_ENV
+ARG APP_DEBUG
+# hadolint ignore=DL3064
+ARG APP_SECRET
+# hadolint ignore=DL3064
+ARG DATABASE_URL
+
 FROM base AS base-builder
 
 #Composer dependencies
@@ -24,17 +31,12 @@ RUN apt-get update -qq\
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-FROM base-builder AS dev
-
-# COPY src/composer.json src/composer.lock ./
-# RUN --mount=type=cache,target=/tmp/composer-cache \
-#     COMPOSER_CACHE_DIR=/tmp/composer-cache composer install
-# COPY src .
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 #symfony
 RUN  curl -fsSL https://get.symfony.com/cli/installer | bash\
   && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+
+FROM base-builder AS dev
 
 RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini\
 && sed -i '\
@@ -43,6 +45,11 @@ s/;opcache.enable_cli=.*/opcache.enable_cli=1/;\
 s|;date.timezone =.*|date.timezone = Europe/Paris|;\
 s/memory_limit =.*/memory_limit = 128M/;\
 ' $PHP_INI_DIR/php.ini
+
+# COPY src/composer.json src/composer.lock ./
+# RUN --mount=type=cache,target=/tmp/composer-cache \
+#     COMPOSER_CACHE_DIR=/tmp/composer-cache composer install
+# COPY src .
 
 FROM base-builder AS prod-builder
  
@@ -56,17 +63,6 @@ RUN composer dump-autoload --no-dev --optimize --no-interaction
 RUN bin/console cache:warmup
 
 FROM base AS prod
-
-ARG APP_ENV
-ARG APP_DEBUG
-# hadolint ignore=DL3064
-ARG APP_SECRET
-# hadolint ignore=DL3064
-ARG DATABASE_URL
- 
-COPY --from=prod-builder /var/www/html .
-
-RUN chown -R www-data:www-data var
 
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini\
 && sed -i '\
@@ -87,3 +83,7 @@ s|;date.timezone =.*|date.timezone = Europe/Paris|;\
 s/memory_limit =.*/memory_limit = 128M/;\
 s/display_errors =.*/display_errors = Off/;\
 ' $PHP_INI_DIR/php.ini
+ 
+COPY --from=prod-builder /var/www/html .
+
+RUN chown -R www-data:www-data var
