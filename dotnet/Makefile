@@ -48,5 +48,5 @@ clean: ## Remove containers and volumes
 
 ##@ Project
 project: build ## Create
-	@$(dc) run --rm --entrypoint sh app -c "dotnet new $(TEMPLATE) -n App -f net6.0 -o ."\
-	&& $(dc) run --rm --entrypoint sh app -c "dotnet add package Microsoft.EntityFrameworkCore.SqlServer"
+	@$(dc) run --rm --no-deps --entrypoint sh app -c "dotnet new $(TEMPLATE) -n App -f net6.0 -o ."\
+	&& $(dc) run --rm --no-deps --entrypoint sh app -c "dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version '6.0.*'"

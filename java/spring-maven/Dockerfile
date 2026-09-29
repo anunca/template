@@ -1,16 +1,14 @@
-ARG MAVEN_IMAGE
-ARG TOMCAT_IMAGE
+ARG MAVEN_IMAGE=maven:3-eclipse-temurin-11
+ARG TOMCAT_IMAGE=tomcat:9.0-jdk11-temurin
 
 FROM $MAVEN_IMAGE AS base
 
 WORKDIR /app
 
-ENV PORT 5000
+ENV PORT=5000
 EXPOSE $PORT
 
 FROM base AS dev
-
-RUN mvn package
 
 COPY src .
 
@@ -18,9 +16,9 @@ CMD [ "sh", "-c", "mvn -Dserver.port=${PORT} spring-boot:run" ]
 
 FROM base AS prod-builder
 
-RUN mvn package
-
 COPY src .
+
+RUN mvn -B package
 
 FROM $TOMCAT_IMAGE AS prod
 

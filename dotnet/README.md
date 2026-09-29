@@ -39,3 +39,7 @@ export TEMPLATE=react
 ```sh
 export TEMPLATE=reactredux
 ```
+
+Production builds require a project in `src` (run `make project` first for a new app).
+Build with `make ENV=prod build`. The production image serves HTTP on container
+port 5000, exposed on host port 80. Configure HTTPS at your reverse proxy.
