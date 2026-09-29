@@ -11,7 +11,7 @@ EXPOSE 5000
 
 FROM base AS dev
 
-COPY ./src .
+# COPY ./src .
 
 CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0" ]
 
