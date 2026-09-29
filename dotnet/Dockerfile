@@ -10,7 +10,7 @@ EXPOSE 5000-5001
 
 FROM base AS dev
 
-COPY src .
+# COPY src .
 
 ENTRYPOINT ["dotnet"]
 CMD [ "run", "--urls", "http://*:5000;https://*:5001" ]
