@@ -11,9 +11,11 @@ EXPOSE 5000
 
 FROM base AS dev
 
+COPY ./src .
+
 CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0" ]
 
-FROM dev AS build
+FROM base AS prod-builder
 
 COPY ./src/requirements.txt requirements.txt
 
@@ -27,9 +29,9 @@ COPY ./src .
 
 FROM base AS prod
 
-COPY --from=build /app .
+COPY --from=prod-builder /app .
 
-COPY --from=build /usr/local/bin/uwsgi /usr/local/bin/
+COPY --from=prod-builder /usr/local/bin/uwsgi /usr/local/bin/
 COPY ./etc/uwsgi.ini .
 
 COPY ./sh/entrypoint.sh /usr/local/bin/entrypoint
