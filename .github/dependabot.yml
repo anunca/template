@@ -1,27 +1,27 @@
 version: 2
 updates:
   - package-ecosystem: gomod
-    directory: /
+    directory: /go
     schedule:
       interval: weekly
   - package-ecosystem: gradle
-    directory: /
+    directory: /java
     schedule:
       interval: weekly
   - package-ecosystem: maven
-    directory: /
+    directory: /java
     schedule:
       interval: weekly
   - package-ecosystem: npm
-    directory: /
+    directory: /javascript
     schedule:
       interval: weekly
   - package-ecosystem: composer
-    directory: /
+    directory: /pjp
     schedule:
       interval: weekly
   - package-ecosystem: pip
-    directory: /
+    directory: /python
     schedule:
       interval: weekly
   - package-ecosystem: github-actions
