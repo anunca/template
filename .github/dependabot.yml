@@ -1,27 +1,25 @@
 version: 2
 updates:
   - package-ecosystem: gomod
-    directory: /go
+    directories:
+      - /go/fiber/src
+      - /go/go/src
+      - /go/revel/src
+      - /go/revel/src/app
     schedule:
       interval: weekly
   - package-ecosystem: gradle
-    directory: /java
+    directory: /java/spring-gradle/src
     schedule:
       interval: weekly
   - package-ecosystem: maven
-    directory: /java
+    directory: /java/spring-maven/src
     schedule:
       interval: weekly
   - package-ecosystem: npm
-    directory: /javascript
-    schedule:
-      interval: weekly
-  - package-ecosystem: composer
-    directory: /pjp
-    schedule:
-      interval: weekly
-  - package-ecosystem: pip
-    directory: /python
+    directories:
+      - /javascript/express/src
+      - /javascript/nodejs/tmp
     schedule:
       interval: weekly
   - package-ecosystem: github-actions
@@ -29,6 +27,24 @@ updates:
     schedule:
       interval: monthly
   - package-ecosystem: docker
-    directory: /
+    directories:
+      - /dotnet
+      - /go/fiber
+      - /go/go
+      - /go/revel
+      - /java/spring-gradle
+      - /java/spring-maven
+      - /javascript/express
+      - /javascript/nodejs
+      - /javascript/react
+      - /javascript/serverless
+      - /php/laravel-apache
+      - /php/laravel-nginx
+      - /php/symfony-apache
+      - /php/symfony-nginx
+      - /python/django
+      - /python/flask
     schedule:
       interval: monthly
+
+# Composer, pip, and NuGet can be enabled once their project manifests are committed.
